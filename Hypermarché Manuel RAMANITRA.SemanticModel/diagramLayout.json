@@ -1,0 +1,151 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 103.55047658652234,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 272.6
+          },
+          "nodeIndex": "DIMCLIENTS",
+          "nodeLineageTag": "791cb1b7-ab5d-4ce5-9af3-3b6e4f4c0b65",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 641.9,
+            "y": 49.300000000000011
+          },
+          "nodeIndex": "DIMCOMMANDE",
+          "nodeLineageTag": "136eb7c8-12d4-420c-96a3-f9c288a72cda",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 21.900000000000006,
+            "y": 0
+          },
+          "nodeIndex": "DIMFACTURE",
+          "nodeLineageTag": "d2aa44be-295a-4601-a949-5ec26d59cd8d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1145.0368531865233,
+            "y": 193.44004861067629
+          },
+          "nodeIndex": "DIMPOINTDEVENTE",
+          "nodeLineageTag": "8e9aeebe-d8f7-45f1-923a-1a99e6bdef2c",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 37.099999999999994,
+            "y": 561.6
+          },
+          "nodeIndex": "DIMPRODUIT",
+          "nodeLineageTag": "2a364fe6-e74c-465b-be76-ea3ea3965340",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 972.65395850019092,
+            "y": 551.06323675366752
+          },
+          "nodeIndex": "DIMRETOURS",
+          "nodeLineageTag": "6744396b-c9f1-49f2-950e-6ac1741f52e3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 397.22470537127282,
+            "y": 290.75870291221952
+          },
+          "nodeIndex": "FAITVENTES",
+          "nodeLineageTag": "6057ea8f-8ab8-49f2-bd72-72d269e03eed",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 603.913673963135,
+            "y": 726.8465283339691
+          },
+          "nodeIndex": "Calendrier",
+          "nodeLineageTag": "2d05096b-09a2-4d76-8ec1-70f2a1901936",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1377.5907217465233,
+            "y": 413.42326416698461
+          },
+          "nodeIndex": "Tables Mesures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1661.5907217465233,
+            "y": 437.42326416698461
+          },
+          "nodeIndex": "Paramètre",
+          "nodeLineageTag": "df029507-a7d6-4aa5-b919-c933afcc493a",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Toutes les tables",
+      "zoomValue": 46.650738020973314,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Toutes les tables",
+  "defaultDiagram": "Toutes les tables"
+}

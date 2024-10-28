@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Hypermarché Manuel RAMANITRA"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "15798ab8-05e1-4773-8702-883b25d28b27"
+  }
+}
