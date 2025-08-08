@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Alim_DWH_DimProduit</name>
+    <name>Alim_DWH_DimRetours</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,10 +427,10 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/08/08 12:04:04.799</created_date>
+    <created_date>2025/08/08 12:33:48.332</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/08/08 12:04:04.799</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2025/08/08 12:33:48.332</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -516,12 +516,12 @@
     </hop>
     <hop>
       <from>Filtrage lignes</from>
-      <to>Mise à jour table DIMPRODUIT</to>
+      <to>Mise à jour table</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Incrementation ID</from>
-      <to>Insertion dans table DIMPRODUIT</to>
+      <to>Insertion DWH DIMRETOURS</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -530,13 +530,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>T_SAS_Hypermarche</from>
-      <to>Tri lignes</to>
+      <from>T_SAS_Hypermarche_ProduitsRetours</from>
+      <to>Dédoublonnage</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Tri lignes</from>
-      <to>Dédoublonnage</to>
+      <from>T_SAS_Hypermarche_ProduitsRetours</from>
+      <to>Tri id commande</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -553,20 +553,12 @@
     </partitioning>
     <fields>
       <field>
-        <name>REF_PRODUIT</name>
-        <rename>CD_PRODUIT</rename>
+        <name>NUM_COMMANDE</name>
+        <rename>NUM_COMMANDE</rename>
       </field>
       <field>
-        <name>Sous-catégorie</name>
-        <rename>LB_SOUS_CATEGORIE</rename>
-      </field>
-      <field>
-        <name>Nom du produit</name>
-        <rename>LB_PRODUIT</rename>
-      </field>
-      <field>
-        <name>CATÉGORIE</name>
-        <rename>LB_CATEGORIE</rename>
+        <name>MOTIF</name>
+        <rename>LIB_MOTIF_RETOURS</rename>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -579,8 +571,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>352</yloc>
+      <xloc>1168</xloc>
+      <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -597,11 +589,11 @@
     </partitioning>
     <count_rows>N</count_rows>
     <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
+    <reject_duplicate_row>Y</reject_duplicate_row>
     <error_description/>
     <fields>
       <field>
-        <name>REF_PRODUIT</name>
+        <name>NUM_COMMANDE</name>
         <case_insensitive>N</case_insensitive>
       </field>
     </fields>
@@ -614,8 +606,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>240</yloc>
+      <xloc>688</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -631,11 +623,11 @@
       <schema_name/>
     </partitioning>
     <send_true_to>Altération structure flux</send_true_to>
-    <send_false_to>Mise à jour table DIMPRODUIT</send_false_to>
+    <send_false_to>Mise à jour table</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>ID_PRODUIT</leftvalue>
+        <leftvalue>ID_RETOURS</leftvalue>
         <function>=</function>
         <rightvalue/>
         <value>
@@ -658,8 +650,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>240</yloc>
+      <xloc>1168</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -674,11 +666,11 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <valuename>ID_PRODUIT</valuename>
+    <valuename>ID_RETOURS</valuename>
     <use_database>N</use_database>
-    <connection>Azure DB</connection>
+    <connection/>
     <schema>M203</schema>
-    <seqname>SEQ_PRODUIT</seqname>
+    <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
     <counter_name/>
     <start_at>1</start_at>
@@ -693,13 +685,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>464</yloc>
+      <xloc>1168</xloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table DIMPRODUIT</name>
+    <name>Insertion DWH DIMRETOURS</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -711,11 +703,11 @@
     </partitioning>
     <connection>Azure DB</connection>
     <schema/>
-    <table>DIMPRODUIT</table>
+    <table>DIMRETOURS</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
+    <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -728,24 +720,16 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>ID_PRODUIT</column_name>
-        <stream_name>ID_PRODUIT</stream_name>
+        <column_name>ID_RETOURS</column_name>
+        <stream_name>ID_RETOURS</stream_name>
       </field>
       <field>
-        <column_name>CD_PRODUIT</column_name>
-        <stream_name>CD_PRODUIT</stream_name>
+        <column_name>NUM_COMMANDE</column_name>
+        <stream_name>NUM_COMMANDE</stream_name>
       </field>
       <field>
-        <column_name>LB_PRODUIT</column_name>
-        <stream_name>LB_PRODUIT</stream_name>
-      </field>
-      <field>
-        <column_name>LB_CATEGORIE</column_name>
-        <stream_name>LB_CATEGORIE</stream_name>
-      </field>
-      <field>
-        <column_name>LB_SOUS_CATEGORIE</column_name>
-        <stream_name>LB_SOUS_CATEGORIE</stream_name>
+        <column_name>LIB_MOTIF_RETOURS</column_name>
+        <stream_name>LIB_MOTIF_RETOURS</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -757,13 +741,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>608</yloc>
+      <xloc>1168</xloc>
+      <yloc>816</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Mise à jour table DIMPRODUIT</name>
+    <name>Mise à jour table</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -781,28 +765,16 @@
     <ignore_flag_field/>
     <lookup>
       <schema/>
-      <table>DIMPRODUIT</table>
+      <table>DIMRETOURS</table>
       <key>
-        <name>ID_PRODUIT</name>
-        <field>ID_PRODUIT</field>
+        <name>ID_RETOURS</name>
+        <field>ID_RETOURS</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>LB_SOUS_CATEGORIE</name>
-        <rename>Sous-catégorie</rename>
-      </value>
-      <value>
-        <name>CD_PRODUIT</name>
-        <rename>REF_PRODUIT</rename>
-      </value>
-      <value>
-        <name>LB_PRODUIT</name>
-        <rename>Nom du produit</rename>
-      </value>
-      <value>
-        <name>LB_CATEGORIE</name>
-        <rename>CATÉGORIE</rename>
+        <name>LIB_MOTIF_RETOURS</name>
+        <rename>MOTIF</rename>
       </value>
     </lookup>
     <attributes/>
@@ -814,8 +786,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1136</xloc>
-      <yloc>240</yloc>
+      <xloc>1360</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -836,21 +808,21 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>DIMPRODUIT</table>
+      <table>DIMRETOURS</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>REF_PRODUIT</name>
-        <field>CD_PRODUIT</field>
+        <name>NUM_COMMANDE</name>
+        <field>NUM_COMMANDE</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>ID_PRODUIT</name>
-        <rename>ID_PRODUIT</rename>
+        <name>ID_RETOURS</name>
+        <rename>ID_RETOURS</rename>
         <default>0</default>
-        <type>None</type>
+        <type>Integer</type>
       </value>
     </lookup>
     <attributes/>
@@ -862,13 +834,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>688</xloc>
-      <yloc>240</yloc>
+      <xloc>944</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>T_SAS_Hypermarche</name>
+    <name>T_SAS_Hypermarche_ProduitsRetours</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -880,12 +852,9 @@
     </partitioning>
     <connection>Azure DB</connection>
     <sql>SELECT
- REF_PRODUIT
-, CATÉGORIE
-, "Sous-catégorie"
-, "Nom du produit"
-
-FROM [dbo].[SAS_Hypermarche]
+  NUM_COMMANDE
+, MOTIF
+FROM [dbo].[SAS_Hypermarche_ProduitsRetours]
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -897,11 +866,11 @@ FROM [dbo].[SAS_Hypermarche]
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>REF_PRODUIT</name>
-        <length>100</length>
+        <name>NUM_COMMANDE</name>
+        <length>15</length>
         <precision>-1</precision>
-        <origin>T_SA_Hypermarche_Achat </origin>
-        <comments>REF_PRODUIT</comments>
+        <origin>T_SAS_Hypermarche</origin>
+        <comments>NUM_COMMANDE</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -920,57 +889,11 @@ FROM [dbo].[SAS_Hypermarche]
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>CATÉGORIE</name>
-        <length>100</length>
+        <name>MOTIF</name>
+        <length>50</length>
         <precision>-1</precision>
-        <origin>T_SA_Hypermarche_Achat </origin>
-        <comments>CATÉGORIE</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Europe/Paris</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>Sous-catégorie</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>T_SA_Hypermarche_Achat </origin>
-        <comments>Sous-catégorie</comments>
-        <conversion_Mask/>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Europe/Paris</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>Nom du produit</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>T_SA_Hypermarche_Achat </origin>
-        <comments>Nom du produit</comments>
+        <origin>T_SAS_Hypermarche</origin>
+        <comments>MOTIF</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -996,13 +919,13 @@ FROM [dbo].[SAS_Hypermarche]
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>240</yloc>
+      <xloc>208</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Tri lignes</name>
+    <name>Tri id commande</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1021,7 +944,7 @@ FROM [dbo].[SAS_Hypermarche]
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>REF_PRODUIT</name>
+        <name>NUM_COMMANDE</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -1038,8 +961,8 @@ FROM [dbo].[SAS_Hypermarche]
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>240</yloc>
+      <xloc>480</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
