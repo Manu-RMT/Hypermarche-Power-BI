@@ -1,0 +1,295 @@
+﻿NUM_COMMANDE;RETOURNE;MOTIF
+ES-2011-1137137;Oui;Produits déféctueux
+ES-2011-1141056;Oui;Livraison tardive
+ES-2011-1228490;Oui;non-conformité
+ES-2011-1276768;Oui;Produits commandés par erreur
+ES-2011-1443340;Oui;non-conformité
+ES-2011-1868803;Oui;Livraison tardive
+ES-2011-2417338;Oui;Livraison tardive
+ES-2011-2835499;Oui;Livraison tardive
+ES-2011-3028321;Oui;Produits commandés par erreur
+ES-2011-3074997;Oui;non-conformité
+ES-2011-3106999;Oui;non-conformité
+ES-2011-3108517;Oui;non-conformité
+ES-2011-3249098;Oui;non-conformité
+ES-2011-3305419;Oui;Produits commandés par erreur
+ES-2011-3366039;Oui;Produits déféctueux
+ES-2011-3654318;Oui;Produits déféctueux
+ES-2011-3864297;Oui;Produits déféctueux
+ES-2011-4351366;Oui;Paiement non valide
+ES-2011-4359424;Oui;Paiement non valide
+ES-2011-4694484;Oui;Paiement non valide
+ES-2011-4816650;Oui;non-conformité
+ES-2011-5032747;Oui;non-conformité
+ES-2011-5118812;Oui;Produits déféctueux
+ES-2011-5201850;Oui;Produits déféctueux
+ES-2011-5263174;Oui;Produits déféctueux
+ES-2011-5273102;Oui;non-conformité
+ES-2011-5389664;Oui;non-conformité
+ES-2011-5464858;Oui;Livraison tardive
+ES-2011-5803751;Oui;Livraison tardive
+ES-2012-1211902;Oui;Adresse non valide
+ES-2012-1295099;Oui;Livraison tardive
+ES-2012-1363320;Oui;non-conformité
+ES-2012-1382586;Oui;Adresse non valide
+ES-2012-1439531;Oui;Adresse non valide
+ES-2012-1484906;Oui;Produits déféctueux
+ES-2012-1721838;Oui;Adresse non valide
+ES-2012-1845274;Oui;Produits déféctueux
+ES-2012-1986848;Oui;Livraison tardive
+ES-2012-2088434;Oui;Produits déféctueux
+ES-2012-2102738;Oui;Produits déféctueux
+ES-2012-2212320;Oui;Paiement non valide
+ES-2012-2223096;Oui;Paiement non valide
+ES-2012-2270219;Oui;non-conformité
+ES-2012-2280466;Oui;Produits déféctueux
+ES-2012-2376426;Oui;Produits déféctueux
+ES-2012-2431083;Oui;Produits déféctueux
+ES-2012-2680511;Oui;Produits déféctueux
+ES-2012-3075381;Oui;Produits déféctueux
+ES-2012-3246286;Oui;Produits déféctueux
+ES-2012-3327222;Oui;Produits déféctueux
+ES-2012-3330001;Oui;Produits déféctueux
+ES-2012-3362320;Oui;Livraison tardive
+ES-2012-3471401;Oui;non-conformité
+ES-2012-3631542;Oui;Livraison tardive
+ES-2012-3679676;Oui;Livraison tardive
+ES-2012-3697227;Oui;Livraison tardive
+ES-2012-3715659;Oui;Livraison tardive
+ES-2012-4007496;Oui;Produits commandés par erreur
+ES-2012-4079399;Oui;non-conformité
+ES-2012-4193401;Oui;non-conformité
+ES-2012-4250639;Oui;non-conformité
+ES-2012-4286133;Oui;Livraison tardive
+ES-2012-4379168;Oui;Livraison tardive
+ES-2012-4485887;Oui;Livraison tardive
+ES-2012-4662036;Oui;Produits déféctueux
+ES-2012-4717022;Oui;Produits déféctueux
+ES-2012-4804562;Oui;Produits déféctueux
+ES-2012-4829315;Oui;Produits déféctueux
+ES-2012-4840257;Oui;Produits déféctueux
+ES-2012-4844965;Oui;Adresse non valide
+ES-2012-5207465;Oui;non-conformité
+ES-2012-5238758;Oui;non-conformité
+ES-2012-5365524;Oui;non-conformité
+ES-2012-5466966;Oui;Livraison tardive
+ES-2012-5566923;Oui;Produits déféctueux
+ES-2012-5645358;Oui;Produits déféctueux
+ES-2012-5745179;Oui;Produits déféctueux
+ES-2012-5757351;Oui;Livraison tardive
+ES-2012-5845607;Oui;Livraison tardive
+ES-2012-5897153;Oui;Adresse non valide
+ES-2012-5923089;Oui;Adresse non valide
+ES-2012-5944655;Oui;Produits commandés par erreur
+ES-2012-5959969;Oui;Produits commandés par erreur
+ES-2013-1072619;Oui;Produits commandés par erreur
+ES-2013-1093488;Oui;Produits déféctueux
+ES-2013-1217902;Oui;Produits déféctueux
+ES-2013-1268416;Oui;Produits déféctueux
+ES-2013-1341762;Oui;Livraison tardive
+ES-2013-1525878;Oui;Livraison tardive
+ES-2013-1610512;Oui;Livraison tardive
+ES-2013-1706935;Oui;Livraison tardive
+ES-2013-1713812;Oui;Produits déféctueux
+ES-2013-1727818;Oui;Livraison tardive
+ES-2013-1785128;Oui;Produits déféctueux
+ES-2013-1795340;Oui;Livraison tardive
+ES-2013-1835691;Oui;Livraison tardive
+ES-2013-1874583;Oui;Livraison tardive
+ES-2013-1906012;Oui;Livraison tardive
+ES-2013-1925248;Oui;Produits déféctueux
+ES-2013-2003988;Oui;Produits déféctueux
+ES-2013-2048769;Oui;Livraison tardive
+ES-2013-2091965;Oui;Adresse non valide
+ES-2013-2310454;Oui;Adresse non valide
+ES-2013-2335535;Oui;Livraison tardive
+ES-2013-2339975;Oui;Livraison tardive
+ES-2013-2406661;Oui;Adresse non valide
+ES-2013-2491395;Oui;Livraison tardive
+ES-2013-2603153;Oui;Livraison tardive
+ES-2013-2638509;Oui;Adresse non valide
+ES-2013-2639112;Oui;non-conformité
+ES-2013-2645491;Oui;Livraison tardive
+ES-2013-2745392;Oui;Livraison tardive
+ES-2013-3007238;Oui;Livraison tardive
+ES-2013-3061639;Oui;Livraison tardive
+ES-2013-3078948;Oui;Livraison tardive
+ES-2013-3093926;Oui;Adresse non valide
+ES-2013-3159008;Oui;Adresse non valide
+ES-2013-3285003;Oui;Produits commandés par erreur
+ES-2013-3323529;Oui;Paiement non valide
+ES-2013-3425110;Oui;Paiement non valide
+ES-2013-3446925;Oui;Livraison tardive
+ES-2013-3508441;Oui;Livraison tardive
+ES-2013-3547323;Oui;Livraison tardive
+ES-2013-3570218;Oui;Produits déféctueux
+ES-2013-3877962;Oui;Produits déféctueux
+ES-2013-3927096;Oui;Produits déféctueux
+ES-2013-3988133;Oui;Produits déféctueux
+ES-2013-4009230;Oui;non-conformité
+ES-2013-4116050;Oui;Produits déféctueux
+ES-2013-4184078;Oui;Livraison tardive
+ES-2013-4190886;Oui;Livraison tardive
+ES-2013-4375143;Oui;Livraison tardive
+ES-2013-4429605;Oui;Adresse non valide
+ES-2013-4441922;Oui;Adresse non valide
+ES-2013-4487295;Oui;Livraison tardive
+ES-2013-4569090;Oui;Produits déféctueux
+ES-2013-4650117;Oui;Produits déféctueux
+ES-2013-4790317;Oui;Livraison tardive
+ES-2013-4897406;Oui;Adresse non valide
+ES-2013-4972434;Oui;Livraison tardive
+ES-2013-5002349;Oui;Produits déféctueux
+ES-2013-5106699;Oui;non-conformité
+ES-2013-5239444;Oui;Livraison tardive
+ES-2013-5246151;Oui;Livraison tardive
+ES-2013-5246295;Oui;Livraison tardive
+ES-2013-5259588;Oui;Livraison tardive
+ES-2013-5616549;Oui;Livraison tardive
+ES-2013-5623189;Oui;Adresse non valide
+ES-2013-5648133;Oui;Adresse non valide
+ES-2013-5685466;Oui;Adresse non valide
+ES-2013-5734148;Oui;non-conformité
+ES-2013-5746149;Oui;non-conformité
+ES-2013-5881573;Oui;non-conformité
+ES-2013-5911126;Oui;non-conformité
+ES-2014-1006059;Oui;Paiement non valide
+ES-2014-1006842;Oui;Paiement non valide
+ES-2014-1012006;Oui;Adresse non valide
+ES-2014-1015287;Oui;Livraison tardive
+ES-2014-1178010;Oui;Livraison tardive
+ES-2014-1182889;Oui;Produits commandés par erreur
+ES-2014-1193193;Oui;Client décédé
+ES-2014-1197792;Oui;Produits déféctueux
+ES-2014-1224526;Oui;Client décédé
+ES-2014-1325616;Oui;non-conformité
+ES-2014-1398657;Oui;Livraison tardive
+ES-2014-1526550;Oui;Client décédé
+ES-2014-1620754;Oui;Client décédé
+ES-2014-1627638;Oui;non-conformité
+ES-2014-1637041;Oui;Adresse non valide
+ES-2014-1651774;Oui;Adresse non valide
+ES-2014-1703772;Oui;non-conformité
+ES-2014-1734818;Oui;non-conformité
+ES-2014-1873734;Oui;Client décédé
+ES-2014-2042578;Oui;Livraison tardive
+ES-2014-2228032;Oui;Livraison tardive
+ES-2014-2280822;Oui;Client décédé
+ES-2014-2299862;Oui;Livraison tardive
+ES-2014-2385129;Oui;Client décédé
+ES-2014-2411166;Oui;non-conformité
+ES-2014-2439745;Oui;non-conformité
+ES-2014-2504689;Oui;non-conformité
+ES-2014-2524646;Oui;Adresse non valide
+ES-2014-2557751;Oui;non-conformité
+ES-2014-2638373;Oui;Produits déféctueux
+ES-2014-2697033;Oui;Produits déféctueux
+ES-2014-2731678;Oui;Adresse non valide
+ES-2014-2769035;Oui;Adresse non valide
+ES-2014-2783426;Oui;Adresse non valide
+ES-2014-2851130;Oui;Adresse non valide
+ES-2014-2901069;Oui;Produits commandés par erreur
+ES-2014-2905780;Oui;Publicité non conforme au produit
+ES-2014-2933395;Oui;Publicité non conforme au produit
+ES-2014-2979530;Oui;Publicité non conforme au produit
+ES-2014-3277356;Oui;Livraison tardive
+ES-2014-3380674;Oui;Livraison tardive
+ES-2014-3424970;Oui;Livraison tardive
+ES-2014-3609825;Oui;Paiement non valide
+ES-2014-3638264;Oui;Publicité non conforme au produit
+ES-2014-3730302;Oui;Livraison tardive
+ES-2014-4079805;Oui;Livraison tardive
+ES-2014-4147581;Oui;Publicité non conforme au produit
+ES-2014-4295205;Oui;Publicité non conforme au produit
+ES-2014-4359397;Oui;Livraison tardive
+ES-2014-4385660;Oui;Livraison tardive
+ES-2014-4387160;Oui;Livraison tardive
+ES-2014-4401602;Oui;Livraison tardive
+ES-2014-4442693;Oui;Publicité non conforme au produit
+ES-2014-4472745;Oui;Publicité non conforme au produit
+ES-2014-4505254;Oui;Publicité non conforme au produit
+ES-2014-4535588;Oui;Livraison tardive
+ES-2014-4598380;Oui;Livraison tardive
+ES-2014-4616921;Oui;Publicité non conforme au produit
+ES-2014-4626156;Oui;Livraison tardive
+ES-2014-4790238;Oui;Produits déféctueux
+ES-2014-4856325;Oui;Livraison tardive
+ES-2014-4963892;Oui;Livraison tardive
+ES-2014-4967939;Oui;Produits déféctueux
+ES-2014-5060319;Oui;Client insatisfait
+ES-2014-5166372;Oui;Produits déféctueux
+ES-2014-5247585;Oui;Produits déféctueux
+ES-2014-5275437;Oui;Produits déféctueux
+ES-2014-5296123;Oui;Produits déféctueux
+ES-2014-5297792;Oui;non-conformité
+ES-2014-5368780;Oui;non-conformité
+ES-2014-5385720;Oui;non-conformité
+ES-2014-5389384;Oui;non-conformité
+ES-2014-5438886;Oui;non-conformité
+ES-2014-5444511;Oui;non-conformité
+ES-2014-5513140;Oui;Client insatisfait
+ES-2014-5621218;Oui;Produits commandés par erreur
+ES-2014-5666305;Oui;Client insatisfait
+ES-2014-5706764;Oui;Livraison tardive
+ES-2014-5710826;Oui;Livraison tardive
+ES-2014-5762425;Oui;Livraison tardive
+ES-2014-5822421;Oui;Livraison tardive
+ES-2014-5830221;Oui;Livraison tardive
+ES-2014-5835827;Oui;Livraison tardive
+ES-2014-5891109;Oui;Livraison tardive
+ES-2014-5900887;Oui;Livraison tardive
+IT-2011-1521406;Oui;non-conformité
+IT-2011-1646767;Oui;Produits déféctueux
+IT-2011-2536577;Oui;Paiement non valide
+IT-2011-2861112;Oui;Client insatisfait
+IT-2011-2911544;Oui;Client insatisfait
+IT-2011-3468929;Oui;Client insatisfait
+IT-2011-4648014;Oui;Client insatisfait
+IT-2011-4812190;Oui;Client insatisfait
+IT-2011-4913414;Oui;Client insatisfait
+IT-2012-1180980;Oui;Client insatisfait
+IT-2012-3091951;Oui;Client insatisfait
+IT-2012-3613157;Oui;non-conformité
+IT-2012-3746228;Oui;non-conformité
+IT-2012-3986604;Oui;non-conformité
+IT-2012-5711400;Oui;Client insatisfait
+IT-2013-1498487;Oui;Client insatisfait
+IT-2013-1665440;Oui;Client insatisfait
+IT-2013-2280110;Oui;Client insatisfait
+IT-2013-2720003;Oui;Client insatisfait
+IT-2013-3060899;Oui;Client insatisfait
+IT-2013-3132916;Oui;Paiement non valide
+IT-2013-3159247;Oui;Paiement non valide
+IT-2013-3253363;Oui;Client insatisfait
+IT-2013-3395178;Oui;Client insatisfait
+IT-2013-3468927;Oui;Livraison tardive
+IT-2013-3876077;Oui;Livraison tardive
+IT-2013-4354136;Oui;Livraison tardive
+IT-2013-4864604;Oui;Livraison tardive
+IT-2013-4869515;Oui;Livraison tardive
+IT-2013-4962578;Oui;Client insatisfait
+IT-2014-1082723;Oui;Client insatisfait
+IT-2014-1147467;Oui;Client insatisfait
+IT-2014-1725451;Oui;Client insatisfait
+IT-2014-1858881;Oui;Client insatisfait
+IT-2014-2068457;Oui;Client insatisfait
+IT-2014-2277753;Oui;non-conformité
+IT-2014-2508683;Oui;non-conformité
+IT-2014-3831682;Oui;non-conformité
+IT-2014-3941500;Oui;non-conformité
+IT-2014-4273010;Oui;Produits déféctueux
+IT-2014-4499061;Oui;non-conformité
+IT-2014-4920177;Oui;non-conformité
+IT-2014-5465876;Oui;non-conformité
+IT-2014-5470294;Oui;non-conformité
+IT-2014-5517515;Oui;non-conformité
+IT-2015-2508683;Oui;Produits déféctueux
+IT-2015-3831682;Oui;Produits déféctueux
+IT-2015-3941500;Oui;Produits déféctueux
+IT-2015-4273010;Oui;Produits déféctueux
+IT-2015-4499061;Oui;Produits déféctueux
+IT-2015-4920177;Oui;non-conformité
+IT-2015-5465876;Oui;non-conformité
+IT-2015-5470294;Oui;Produits déféctueux
+IT-2015-5517515;Oui;Produits déféctueux
+IT-2020-551;Oui;Produits déféctueux
