@@ -1,0 +1,104 @@
+table 'Tables Mesures'
+	lineageTag: c97b46b2-e1ae-4adc-b4d8-1ba616b2146f
+
+	measure 'Total Ventes' = SUM(FAITVENTES[MT_VENTE])
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: be85b99c-287f-4a1a-8246-186df4f06f94
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters)","ObjectType":4},"LinkType":"UsedInGroup"},{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	measure 'Total Quantité' = SUM(FAITVENTES[MT_QUANTITE] )
+		lineageTag: bd41e323-f0cf-4715-84b6-51cd7f576f0e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Profit' = SUM(FAITVENTES[MT_PROFIT])
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: a05c3161-2b11-4a34-9d8a-3f6e5ec19319
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters)","ObjectType":4},"LinkType":"UsedInGroup"},{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	measure 'Total Vente (A-1)' = CALCULATE([Total Ventes],SAMEPERIODLASTYEAR(Calendrier[Date]))
+		lineageTag: 7e2492cb-3f76-4323-9782-ae4370e02ea7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Vente Cumulée Annuel' = CALCULATE([Total Ventes],DATESYTD(Calendrier[Date]))
+		lineageTag: 34da00fd-efb7-4795-8001-3627bfea4b17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Profit Cumulé Annuel' = CALCULATE([Total Profit],DATESYTD(Calendrier[Date]))
+		lineageTag: e59142b5-471d-4d8c-989d-cb8d3fa8e15e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Profit Net Cumulé Annuel' = [Total Profit Cumulé Annuel] - [Total Remise Cumulé Annuel]
+		lineageTag: 6d90d06c-06d9-4f74-b36a-860fcf2c72df
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Remise Cumulé Annuel' = CALCULATE(SUM(FAITVENTES[MT_REMISE]),DATESYTD(Calendrier[Date]))
+		lineageTag: c063e9d0-3df8-4e36-9a7a-1dd2d9a7256e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Variation Annuelle' = DIVIDE([Total Ventes] - [Total Vente (A-1)],[Total Vente (A-1)])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: ea545f48-b68a-462c-a296-9a49567331a2
+
+	measure 'Nombre de commandes' = DISTINCTCOUNT(FAITVENTES[ID_COMMANDE])
+		formatString: 0
+		lineageTag: a2acbeed-a4f4-4b0b-9216-9e7de8d079ea
+
+	measure 'Nombre de factures' = DISTINCTCOUNT(DIMFACTURE[ID_FACTURE])
+		formatString: 0
+		lineageTag: bc5e56fa-d519-4e60-9652-549355ec2153
+
+	measure 'Nombre de factures non honorées' = CALCULATE([Nombre de commandes],FAITVENTES[identification commande non facturée]=1)
+		formatString: 0
+		lineageTag: 4bcf4667-a5be-4879-89b8-10a106852335
+
+	measure 'Total Expédié' = sum(DIMCOMMANDE[DATE_EXPEDITION])
+		formatString: General Date
+		lineageTag: 0914f2d9-0641-43d4-8ce8-9b29ad4fbe9c
+
+	measure 'Delai jours ouvrés' = CALCULATE(SUM(Calendrier[JourOuvré]),Calendrier[Date] > MIN(DIMCOMMANDE[DATE_COMMANDE]),Calendrier[Date] < MAX(DIMCOMMANDE[DATE_EXPEDITION]))
+		formatString: 0
+		lineageTag: 538429e6-b4b8-4762-ac02-b47905ce6962
+
+	measure 'Classement Produit (vente)' = RANKX(ALL(DIMPRODUIT[LB_PRODUIT]),[Total Ventes],,DESC)
+		formatString: 0
+		lineageTag: 86d8ebc6-7e66-4515-86c0-c3112f6c67b1
+
+	measure 'Delai moyen livraison' = DIVIDE([Delai jours ouvrés],[Nombre de commandes])
+		lineageTag: c4b1bc4a-e010-4f19-b5e5-5e980932b7ef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Classement Produits Francais' = ```
+			RANKX(ALLSELECTED(DIMPRODUIT[LB_PRODUIT]),CALCULATE([Total Ventes],DIMPOINTDEVENTE[LB_PAYS]="France"),,) 
+			```
+		formatString: 0
+		lineageTag: c58cea02-ae05-44d6-9e24-506bada7a006
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 7829c6f4-4f10-417c-867b-85b3e8d493da
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Tables Mesures' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 5c5dfdec59a246ba9599c0ac0de28e05
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+
+	annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters)","ObjectType":4},"LinkType":"UsedInGroup"},{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+

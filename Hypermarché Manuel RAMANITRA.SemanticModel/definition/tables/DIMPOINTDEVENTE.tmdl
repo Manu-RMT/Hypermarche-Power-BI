@@ -1,0 +1,77 @@
+table DIMPOINTDEVENTE
+	lineageTag: 8e9aeebe-d8f7-45f1-923a-1a99e6bdef2c
+
+	column ID_PT_VENTE
+		dataType: int64
+		lineageTag: 29f78bcc-c30b-4068-a035-18a202f74de4
+		summarizeBy: none
+		sourceColumn: ID_PT_VENTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LB_PAYS
+		dataType: string
+		lineageTag: 2dd463de-858c-415a-bf33-4954e6796850
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: LB_PAYS
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_REGION
+		dataType: string
+		lineageTag: 976719f6-e908-45d8-bd46-8333bb50d1e8
+		dataCategory: County
+		summarizeBy: none
+		sourceColumn: LB_REGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_VILLE
+		dataType: string
+		lineageTag: 090f080e-bc7e-4c5d-8799-0644d838364b
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: LB_VILLE
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_ZONE_GEOGRAPHIQUE
+		dataType: string
+		lineageTag: 0e752f54-4613-4e45-9d88-1eb3f7395a7e
+		summarizeBy: none
+		sourceColumn: LB_ZONE_GEOGRAPHIQUE
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'hierarchie geo'
+		lineageTag: f09b5238-c7fd-405c-9bcf-ec2cf0bd94db
+
+		level LB_PAYS
+			lineageTag: 8ae4c534-5c91-4de2-ae0a-b70bd5ad459f
+			column: LB_PAYS
+
+		level LB_REGION
+			lineageTag: a3d6e268-4c9c-4e15-873d-de3ed534cdfc
+			column: LB_REGION
+
+		level LB_VILLE
+			lineageTag: d8451bd7-ce7f-4e23-83ee-9a4103a09556
+			column: LB_VILLE
+
+	partition DIMPOINTDEVENTE-18066e72-2fb0-4b70-aacd-0f03d34c70c9 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(AzureServeur, AzureBDD),
+				    M203_Schema = Source{[Name="M203",Kind="Schema"]}[Data],
+				    DIMPOINTDEVENTE_Table = Source{[Schema="dbo",Item="DIMPOINTDEVENTE"]}[Data]
+				in
+				    DIMPOINTDEVENTE_Table
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

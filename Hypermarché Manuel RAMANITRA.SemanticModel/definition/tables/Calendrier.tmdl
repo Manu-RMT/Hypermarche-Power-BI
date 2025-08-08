@@ -1,0 +1,161 @@
+table Calendrier
+	lineageTag: 2d05096b-09a2-4d76-8ec1-70f2a1901936
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 32c38b75-d68f-417e-83c5-20b1cb434f79
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Année
+		dataType: int64
+		formatString: 0
+		lineageTag: 00b7e8b6-b07b-44d7-9eb7-45ed4e31e61f
+		summarizeBy: none
+		sourceColumn: Année
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: 37cfcd6b-277d-4d47-be03-b61132cc6872
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column MoisNombre
+		dataType: int64
+		formatString: 0
+		lineageTag: ad9bb9d9-9060-4cfb-bf5e-a4d7ceb20b80
+		summarizeBy: none
+		sourceColumn: MoisNombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Jour
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b25c793-a09c-4440-a44a-dbc8cfa769c7
+		summarizeBy: none
+		sourceColumn: Jour
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateNombre
+		dataType: string
+		lineageTag: c4097247-2f58-4e9e-adef-4ed158d8a8f7
+		summarizeBy: none
+		sourceColumn: DateNombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column MoisNom
+		dataType: string
+		lineageTag: 4b34b852-4a6e-475d-b320-9262a0cf8fd2
+		summarizeBy: none
+		sourceColumn: MoisNom
+		sortByColumn: MoisNombre
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MoisCalendrier
+		dataType: string
+		lineageTag: ba8af9e6-a4db-4932-83f8-38dc9f70137f
+		summarizeBy: none
+		sourceColumn: MoisCalendrier
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrimestreCalendrier
+		dataType: string
+		lineageTag: 73690ed3-9820-4148-bb0c-68cb60ab3c5c
+		summarizeBy: none
+		sourceColumn: TrimestreCalendrier
+
+		annotation SummarizationSetBy = Automatic
+
+	column JourSemaine
+		dataType: string
+		lineageTag: 89568056-f01e-4b4c-ac10-e12331ade41e
+		summarizeBy: none
+		sourceColumn: JourSemaine
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomJourSemaine
+		dataType: string
+		lineageTag: 405f689b-60a2-4156-b848-4a47f5eb1735
+		summarizeBy: none
+		sourceColumn: NomJourSemaine
+
+		annotation SummarizationSetBy = Automatic
+
+	column FinSemaine
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5f37416b-8332-4c1e-839d-203f472d75cb
+		summarizeBy: none
+		sourceColumn: FinSemaine
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ' Nom jour férie'
+		dataType: string
+		lineageTag: d2c12d23-abad-4b08-b88a-bb705d2e00a1
+		summarizeBy: none
+		sourceColumn: " Nom jour férie"
+
+		annotation SummarizationSetBy = Automatic
+
+	column JourOuvré
+		dataType: int64
+		formatString: 0
+		lineageTag: d2f57725-ee72-4aa9-a95d-da08541d0e52
+		summarizeBy: none
+		sourceColumn: JourOuvré
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendrier-fcbb2293-c465-4ba2-beae-75e1b0a70503 = m
+		mode: import
+		source =
+				let
+				    Source = let
+				    Source = FAITVENTES,
+				    DateMinInitiale = Date.From(List.Min(Source[DT_COMMANDE])),
+				    DateMaxInitiale = Date.From(List.Max(Source[DT_EXPEDITION])),
+				
+				    AnneeMin = Date.Year(DateMinInitiale),
+				    AnneeMax = Date.Year(DateMaxInitiale),
+				
+				    DateMin = #date(AnneeMin, 1, 1),
+				    DateMax = #date(AnneeMax, 12, 31),
+				
+				    Calendrier = generation_calendrier(DateMin, DateMax, "fr-FR")
+				in
+				    Calendrier,
+				    #"Requêtes fusionnées" = Table.NestedJoin(Source, {"Date"}, #"Table jours fériés", {"Date jour férié"}, "Table jours fériés", JoinKind.LeftOuter),
+				    #"Table jours fériés développé" = Table.ExpandTableColumn(#"Requêtes fusionnées", "Table jours fériés", {"appel jours fériés.LIBELLE JOUR"}, {"appel jours fériés.LIBELLE JOUR"}),
+				    #"Personnalisée ajoutée" = Table.AddColumn(#"Table jours fériés développé", "JourOuvré", each if [JourSemaine] < 5 and [appel jours fériés.LIBELLE JOUR] is null then 1 else 0),
+				    #"Type modifié" = Table.TransformColumnTypes(#"Personnalisée ajoutée",{{"JourOuvré", Int64.Type}}),
+				    #"Colonnes renommées" = Table.RenameColumns(#"Type modifié",{{"appel jours fériés.LIBELLE JOUR", " Nom jour férie"}}),
+				    #"Lignes filtrées" = Table.SelectRows(#"Colonnes renommées", each true),
+				    #"Type modifié1" = Table.TransformColumnTypes(#"Lignes filtrées",{{"Date", type datetime}})
+				in
+				    #"Type modifié1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

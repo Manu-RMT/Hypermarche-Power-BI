@@ -1,0 +1,58 @@
+table DIMPRODUIT
+	lineageTag: 2a364fe6-e74c-465b-be76-ea3ea3965340
+
+	column ID_PRODUIT
+		dataType: int64
+		lineageTag: 6ff59bd1-13b9-4d13-a1d3-5a0df4a44bc6
+		summarizeBy: none
+		sourceColumn: ID_PRODUIT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CD_PRODUIT
+		dataType: string
+		lineageTag: c99346be-1f43-4a58-b687-0c6927910b5b
+		summarizeBy: none
+		sourceColumn: CD_PRODUIT
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_PRODUIT
+		dataType: string
+		lineageTag: a678889c-95cc-4720-9b53-07cff044453e
+		summarizeBy: none
+		sourceColumn: LB_PRODUIT
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_SOUS_CATEGORIE
+		dataType: string
+		lineageTag: 3088229c-f29c-488f-b8e7-77d56b34eed8
+		summarizeBy: none
+		sourceColumn: LB_SOUS_CATEGORIE
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_CATEGORIE
+		dataType: string
+		lineageTag: dae5e1d8-2aa1-41b2-8c1f-02412501af19
+		summarizeBy: none
+		sourceColumn: LB_CATEGORIE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIMPRODUIT-cceb288b-01ad-4bce-8b54-4543cc9ac7b8 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(AzureServeur, AzureBDD),
+				    M203_Schema = Source{[Schema="dbo",Item="DIMPRODUIT"]}[Data]
+				in
+				    M203_Schema
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

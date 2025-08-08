@@ -1,0 +1,42 @@
+table DIMRETOURS
+	lineageTag: 6744396b-c9f1-49f2-950e-6ac1741f52e3
+
+	column ID_RETOURS
+		dataType: int64
+		lineageTag: e38a5e7f-0ba6-49fc-a7dd-6fd913479334
+		summarizeBy: none
+		sourceColumn: ID_RETOURS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NUM_COMMANDE
+		dataType: string
+		lineageTag: deec8f08-803a-485f-87f3-27fe5ff674e3
+		summarizeBy: none
+		sourceColumn: NUM_COMMANDE
+
+		annotation SummarizationSetBy = Automatic
+
+	column LIB_MOTIF_RETOURS
+		dataType: string
+		lineageTag: 93175d44-19a0-4dfc-b0a5-8dd6ce5e4413
+		summarizeBy: none
+		sourceColumn: LIB_MOTIF_RETOURS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIMRETOURS-e87eabcd-1f3e-4dbf-8db7-0df2bf415215 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(AzureServeur, AzureBDD),
+				    M203_Schema = Source{[Schema="dbo",Item="DIMRETOURS"]}[Data]
+				in
+				    M203_Schema
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

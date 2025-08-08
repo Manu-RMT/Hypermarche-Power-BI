@@ -1,0 +1,41 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup fonction_generation_jour_ferie_par_annne
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["DIMCOMMANDE","DIMCLIENTS","DIMFACTURE","DIMPOINTDEVENTE","DIMPRODUIT","DIMRETOURS","FAITVENTES","generation_calendrier","Calendrier","Table jours fériés","Table 1","Année","fonction_generation_jour_ferie_par_annne","Source_BDD","AzureServeur","AzureBDD"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.145.1602.0 (25.07)+10647c9fa319b5e39936cdb21328038c371d1fe4
+
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
+
+ref table DIMCOMMANDE
+ref table DateTableTemplate_f15e7891-ac24-402b-b6f8-c42f96260197
+ref table LocalDateTable_60b4f678-d96c-423b-98bc-d62093ff4f97
+ref table DIMCLIENTS
+ref table DIMFACTURE
+ref table LocalDateTable_c3c9ee78-a960-40be-96ba-5bcbb968c87e
+ref table DIMPOINTDEVENTE
+ref table DIMPRODUIT
+ref table DIMRETOURS
+ref table FAITVENTES
+ref table Calendrier
+ref table 'Tables Mesures'
+ref table Paramètre
+ref table ClusterMappingTable
+ref table 'ClusterMappingTable 2'
+ref table LocalDateTable_e4daf271-87e1-4a07-8a5e-420c054b174e
+ref table LocalDateTable_39a62f7b-decc-4f74-9e49-3411a37b9cb1
+
+ref cultureInfo fr-FR
+

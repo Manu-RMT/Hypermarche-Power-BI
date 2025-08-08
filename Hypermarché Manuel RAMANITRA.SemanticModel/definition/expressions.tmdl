@@ -1,0 +1,116 @@
+expression generation_calendrier =
+		let
+		CreateDateTable = (StartDate as date, EndDate as date, optional Culture as nullable text) as table =>
+		let
+		DayCount = Duration.Days(Duration.From(EndDate - StartDate)),
+		Source = List.Dates(StartDate,DayCount,#duration(1,0,0,0)),
+		TableFromList = Table.FromList(Source, Splitter.SplitByNothing()),
+		ChangedType = Table.TransformColumnTypes(TableFromList,{{"Column1", type date}}),
+		RenamedColumns = Table.RenameColumns(ChangedType,{{"Column1", "Date"}}),
+		InsertYear = Table.AddColumn(RenamedColumns, "Année", each Date.Year([Date]), Int64.Type),
+		InsertQuarter = Table.AddColumn(InsertYear, "Trimestre", each Date.QuarterOfYear([Date]), Int64.Type),
+		InsertMonth = Table.AddColumn(InsertQuarter, "MoisNombre", each Date.Month([Date]), Int64.Type),
+		InsertDay = Table.AddColumn(InsertMonth, "Jour", each Date.Day([Date]), Int64.Type),
+		InsertDayInt = Table.AddColumn(InsertDay, "DateNombre", each [Année] * 10000 + [MoisNombre] * 100 + [Jour]),
+		InsertMonthName = Table.AddColumn(InsertDayInt, "MoisNom", each Date.ToText([Date], "MMMM", Culture), type text),
+		InsertCalendarMonth = Table.AddColumn(InsertMonthName, "MoisCalendrier", each (try(Text.Range([MoisNom],0,3))
+		otherwise [MoisNom]) & " " & Number.ToText([Année])),
+		InsertCalendarQtr = Table.AddColumn(InsertCalendarMonth, "TrimestreCalendrier", each "T" & Number.ToText([Trimestre]) &
+		" " & Number.ToText([Année])),
+		InsertDayWeek = Table.AddColumn(InsertCalendarQtr, "JourSemaine", each Date.DayOfWeek([Date])),
+		InsertDayName = Table.AddColumn(InsertDayWeek, "NomJourSemaine", each Date.ToText([Date], "dddd", Culture), type
+		text),
+		InsertWeekEnding = Table.AddColumn(InsertDayName, "FinSemaine", each Date.EndOfWeek([Date]), type date)
+		in
+		InsertWeekEnding
+		in
+		CreateDateTable
+	lineageTag: 96801e38-d7ee-44b7-9c19-85fd8e10b8d3
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression Année = "2013" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: fedbeeba-8af3-4cc5-82a7-e73935dd5a67
+	queryGroup: fonction_generation_jour_ferie_par_annne
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression fonction_generation_jour_ferie_par_annne =
+		let
+		    Source = (Année as text) => let
+		        Source = Web.BrowserContents("https://kalendrier.ouest-france.fr/jours-feries/" & Année & ".html"),
+		        #"Table extraite à partir de code Html" = Html.Table(Source, {{"Column1", "TD:nth-child(1)"}, {"Column2", ".url"}, {"Column3", "TD + *"}, {"Column4", ".location"}}, [RowSelector=".vevent"]),
+		        #"Type modifié" = Table.TransformColumnTypes(#"Table extraite à partir de code Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+		        #"Colonnes supprimées" = Table.RemoveColumns(#"Type modifié",{"Column4"}),
+		        #"Colonnes renommées" = Table.RenameColumns(#"Colonnes supprimées",{{"Column1", "LIBELLE JOUR"}, {"Column2", "LIBELLE 2 JOURS"}, {"Column3", "DATE TEXTE"}})
+		    in
+		        #"Colonnes renommées"
+		in
+		    Source
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Table 1""}" ]
+	lineageTag: b382b857-d4de-45a2-9df4-427799bf0bdb
+	queryGroup: fonction_generation_jour_ferie_par_annne
+
+	annotation PBI_ResultType = Function
+
+expression Source_BDD = "dsn=DWH_Manuel" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: fdcecec0-b488-4f3e-bdf9-9a79255bf46d
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression 'Table jours fériés' =
+		let
+		    Source = generation_calendrier(#date(2011, 1, 1), #date(2020, 12, 31), null),
+		    #"Autres colonnes supprimées" = Table.SelectColumns(Source,{"Année"}),
+		    #"Doublons supprimés" = Table.Distinct(#"Autres colonnes supprimées"),
+		    #"Type modifié" = Table.TransformColumnTypes(#"Doublons supprimés",{{"Année", type text}}),
+		    #"Fonction personnalisée appelée" = Table.AddColumn(#"Type modifié", "appel jours fériés", each fonction_generation_jour_ferie_par_annne([Année])),
+		    #"appel jours fériés développé" = Table.ExpandTableColumn(#"Fonction personnalisée appelée", "appel jours fériés", {"LIBELLE JOUR", "LIBELLE 2 JOURS", "DATE TEXTE"}, {"appel jours fériés.LIBELLE JOUR", "appel jours fériés.LIBELLE 2 JOURS", "appel jours fériés.DATE TEXTE"}),
+		    #"Duplication de la colonne" = Table.DuplicateColumn(#"appel jours fériés développé", "appel jours fériés.DATE TEXTE", "appel jours fériés.DATE TEXTE - Copier"),
+		    #"Valeur remplacée" = Table.ReplaceValue(#"Duplication de la colonne","1er","1",Replacer.ReplaceText,{"appel jours fériés.DATE TEXTE - Copier"}),
+		    #"Type modifié1" = Table.TransformColumnTypes(#"Valeur remplacée",{{"appel jours fériés.DATE TEXTE - Copier", type date}}),
+		    #"Colonnes renommées" = Table.RenameColumns(#"Type modifié1",{{"appel jours fériés.DATE TEXTE - Copier", "Date jour férié"}})
+		in
+		    #"Colonnes renommées"
+	lineageTag: 18e45133-1644-4d8b-824f-38235b6eaf09
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Table 1' =
+		let
+		    Source = Web.BrowserContents("https://kalendrier.ouest-france.fr/jours-feries/" & Année & ".html"),
+		    #"Table extraite à partir de code Html" = Html.Table(Source, {{"Column1", "TD:nth-child(1)"}, {"Column2", ".url"}, {"Column3", "TD + *"}, {"Column4", ".location"}}, [RowSelector=".vevent"]),
+		    #"Type modifié" = Table.TransformColumnTypes(#"Table extraite à partir de code Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+		    #"Colonnes supprimées" = Table.RemoveColumns(#"Type modifié",{"Column4"}),
+		    #"Colonnes renommées" = Table.RenameColumns(#"Colonnes supprimées",{{"Column1", "LIBELLE JOUR"}, {"Column2", "LIBELLE 2 JOURS"}, {"Column3", "DATE TEXTE"}})
+		in
+		    #"Colonnes renommées"
+	lineageTag: 1cbb9cdc-f494-4685-94a8-94ba6bf66a77
+	queryGroup: fonction_generation_jour_ferie_par_annne
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression AzureServeur = "sqlsrv-mra-dev.database.windows.net" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 7547b81c-6ee8-41c6-b0ff-814d603d0bd5
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression AzureBDD = "sqldb-dwh-mra-dev" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 07936d7d-7932-40bd-8c1e-1efc8a3e0657
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

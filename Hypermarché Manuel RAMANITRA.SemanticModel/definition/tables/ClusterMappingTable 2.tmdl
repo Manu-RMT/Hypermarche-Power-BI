@@ -1,0 +1,66 @@
+table 'ClusterMappingTable 2'
+	isHidden
+	isPrivate
+	lineageTag: 0e2c46f0-7ec6-43c1-b9ce-39cf733fd823
+
+	column ID_CLIENT
+		lineageTag: a84acdc2-bd2f-4927-8def-ef9028e6b647
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [ID_CLIENT]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column ClusterId
+		formatString: 0
+		lineageTag: 3d6161bb-289f-44e4-b4a8-cf4d59c26e6f
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [ClusterId]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	partition 'ClusterMappingTable 2' = calculated
+		mode: import
+		source = ```
+				VAR __DS0FilterTable = 
+					TREATAS({"'Tables Mesures'[Total Ventes]"}, 'Paramètre'[Paramètre Champs])
+				
+				VAR __DS0Core = 
+					SUMMARIZECOLUMNS(
+						'FAITVENTES'[ID_CLIENT],
+						__DS0FilterTable,
+						"Total_Ventes", 'Tables Mesures'[Total Ventes],
+						"Total_Profit", 'Tables Mesures'[Total Profit]
+					)
+				
+				VAR __DataTransformT0 = 
+					KMeansClustering(
+						SELECTCOLUMNS(
+							__DS0Core,
+							"ID_CLIENT", 'FAITVENTES'[ID_CLIENT],
+							"Total_Ventes", [Total_Ventes],
+							"Total_Profit", [Total_Profit]
+						),
+						{("[Total_Ventes]", "Attribute"),
+							("[Total_Profit]", "Attribute"),
+							("[ID_CLIENT]", "Item")},
+						{("[ID_CLIENT]", BLANK()),
+							("ClusterId", "ClusterId")},
+						7
+					)
+				
+				RETURN __DataTransformT0
+				```
+			retainDataTillForceCalculate
+
+	annotation ClusterMappingTable = true
+
+	annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+

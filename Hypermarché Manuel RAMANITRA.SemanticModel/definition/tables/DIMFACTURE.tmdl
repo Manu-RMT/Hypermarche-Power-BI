@@ -1,0 +1,49 @@
+table DIMFACTURE
+	lineageTag: d2aa44be-295a-4601-a949-5ec26d59cd8d
+
+	column ID_FACTURE
+		dataType: int64
+		lineageTag: a8517591-24bb-49e7-a7f2-b89f67b7ffe8
+		summarizeBy: none
+		sourceColumn: ID_FACTURE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NUM_FACTURE
+		dataType: string
+		lineageTag: 2f6d2b46-c728-4298-a477-5009aba94282
+		summarizeBy: none
+		sourceColumn: NUM_FACTURE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_FACTURE
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 68175f5a-4c12-4426-a869-974f13bc5e07
+		summarizeBy: none
+		sourceColumn: DATE_FACTURE
+
+		variation Variation
+			isDefault
+			relationship: 2dd5143c-997f-43c5-b14c-a3dc35cd19a2
+			defaultHierarchy: LocalDateTable_c3c9ee78-a960-40be-96ba-5bcbb968c87e.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIMFACTURE-72e55ad5-59bc-453e-8519-4c77e54de35f = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(AzureServeur, AzureBDD),
+				    M203_Schema = Source{[Name="M203",Kind="Schema"]}[Data],
+				    DIMFACTURE_Table = Source{[Schema="dbo",Item="DIMFACTURE"]}[Data]
+				in
+				    DIMFACTURE_Table
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

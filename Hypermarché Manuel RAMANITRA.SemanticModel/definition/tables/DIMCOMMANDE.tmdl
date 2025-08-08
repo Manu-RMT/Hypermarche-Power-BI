@@ -1,0 +1,71 @@
+table DIMCOMMANDE
+	lineageTag: 136eb7c8-12d4-420c-96a3-f9c288a72cda
+
+	column ID_COMMANDE
+		dataType: int64
+		lineageTag: 9b01f0b8-468f-45e8-b004-21b17043215a
+		summarizeBy: none
+		sourceColumn: ID_COMMANDE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NUM_COMMANDE
+		dataType: string
+		lineageTag: f48abb54-6a76-4146-b6a8-59141b7c084d
+		summarizeBy: none
+		sourceColumn: NUM_COMMANDE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_COMMANDE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3f1fb97b-10b8-4343-95cd-c631d8a80b93
+		summarizeBy: none
+		sourceColumn: DATE_COMMANDE
+
+		variation Variation
+			isDefault
+			relationship: 479e794c-dc77-4ba4-b45d-e53f462d8bc9
+			defaultHierarchy: LocalDateTable_e4daf271-87e1-4a07-8a5e-420c054b174e.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATE_EXPEDITION
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 41f8c865-3cc8-4ff2-9cdd-3818e1e3b7a6
+		summarizeBy: none
+		sourceColumn: DATE_EXPEDITION
+
+		variation Variation
+			isDefault
+			relationship: 42e1c31c-9618-4782-81f6-316e4639e642
+			defaultHierarchy: LocalDateTable_60b4f678-d96c-423b-98bc-d62093ff4f97.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_MODE_EXPEDITION
+		dataType: string
+		lineageTag: 666c32d3-2119-4e12-b640-2c518c61a6b9
+		summarizeBy: none
+		sourceColumn: LB_MODE_EXPEDITION
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIMCOMMANDE-47d92f64-d4bf-4d60-befb-b11b1ed8ccf4 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(AzureServeur, AzureBDD),
+				    M203_Schema = Source{[Name="M203",Kind="Schema"]}[Data],
+				    DIMCOMMANDE_Table = Source{[Schema="dbo",Item="DIMCOMMANDE"]}[Data]
+				in
+				    DIMCOMMANDE_Table
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

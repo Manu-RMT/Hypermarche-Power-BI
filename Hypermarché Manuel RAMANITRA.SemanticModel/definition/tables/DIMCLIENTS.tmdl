@@ -1,0 +1,51 @@
+table DIMCLIENTS
+	lineageTag: 791cb1b7-ab5d-4ce5-9af3-3b6e4f4c0b65
+
+	column ID_CLIENT
+		dataType: int64
+		lineageTag: 71cdd196-91f8-4451-8a09-485ea9308504
+		summarizeBy: none
+		sourceColumn: ID_CLIENT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CD_CLIENT
+		dataType: string
+		lineageTag: db0e39c1-4342-4fdc-acd8-b1691a6216d0
+		summarizeBy: none
+		sourceColumn: CD_CLIENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_NOM_CLIENT
+		dataType: string
+		lineageTag: f8aac194-5d22-434b-9a01-84e53494acf1
+		summarizeBy: none
+		sourceColumn: LB_NOM_CLIENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column LB_NOM_SEGMENT
+		dataType: string
+		lineageTag: fbbc05b7-1372-44ff-88fd-8f063b713a9c
+		summarizeBy: none
+		sourceColumn: LB_NOM_SEGMENT
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIMCLIENTS-e05d7cd7-feaa-4a66-b1db-6a75e8f82b38 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(AzureServeur, AzureBDD),
+				    M203_Schema = Source{[Name="M203",Kind="Schema"]}[Data],
+				    DIMCLIENTS_Table = Source{[Schema="dbo",Item="DIMCLIENTS"]}[Data]
+				in
+				    DIMCLIENTS_Table
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

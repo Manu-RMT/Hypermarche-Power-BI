@@ -1,0 +1,52 @@
+table Paramètre
+	lineageTag: df029507-a7d6-4aa5-b919-c933afcc493a
+
+	column Paramètre
+		lineageTag: 9f07670d-3467-434c-83e8-90d533a93936
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Paramètre Commande'
+
+		relatedColumnDetails
+			groupByColumn: 'Paramètre Champs'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Paramètre Champs'
+		isHidden
+		lineageTag: 0f725a68-ffec-4fc2-a7c3-5f4cd3e34ce6
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Paramètre Commande'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column 'Paramètre Commande'
+		isHidden
+		formatString: 0
+		lineageTag: 5598b722-59a6-44dd-92fc-90f2e14d94e6
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Paramètre = calculated
+		mode: import
+		source =
+				{
+				    ("Total Profit", NAMEOF('Tables Mesures'[Total Profit]), 0),
+				    ("Total Ventes", NAMEOF('Tables Mesures'[Total Ventes]), 1)
+				}
+
+	annotation PBI_Id = afe5f499edab40e5adaa2eb075918f3e
+
+	annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"FAITVENTES","TableItemName":"ID_CLIENT (clusters) 2","ObjectType":4},"LinkType":"UsedInGroup"}]
+

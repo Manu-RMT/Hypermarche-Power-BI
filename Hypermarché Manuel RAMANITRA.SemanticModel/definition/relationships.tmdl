@@ -1,0 +1,48 @@
+relationship 42e1c31c-9618-4782-81f6-316e4639e642
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIMCOMMANDE.DATE_EXPEDITION
+	toColumn: LocalDateTable_60b4f678-d96c-423b-98bc-d62093ff4f97.Date
+
+relationship 2dd5143c-997f-43c5-b14c-a3dc35cd19a2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIMFACTURE.DATE_FACTURE
+	toColumn: LocalDateTable_c3c9ee78-a960-40be-96ba-5bcbb968c87e.Date
+
+relationship f65246ab-e7af-44bc-82ae-021ac92ed9d5
+	fromColumn: FAITVENTES.ID_CLIENT
+	toColumn: DIMCLIENTS.ID_CLIENT
+
+relationship 4065a3c1-eabf-4e61-86db-af79f82557de
+	fromColumn: FAITVENTES.ID_PRODUIT
+	toColumn: DIMPRODUIT.ID_PRODUIT
+
+relationship 5fb79e16-d2d6-4c00-8f7b-764d982a0039
+	fromColumn: FAITVENTES.ID_RETOURS
+	toColumn: DIMRETOURS.ID_RETOURS
+
+relationship bc1c7e84-bd9d-44d5-887f-b01b60760262
+	fromColumn: FAITVENTES.ID_PT_VENTE
+	toColumn: DIMPOINTDEVENTE.ID_PT_VENTE
+
+relationship 479e794c-dc77-4ba4-b45d-e53f462d8bc9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIMCOMMANDE.DATE_COMMANDE
+	toColumn: LocalDateTable_e4daf271-87e1-4a07-8a5e-420c054b174e.Date
+
+relationship f917192c-5b66-b054-1778-61334012e77d
+	fromColumn: FAITVENTES.ID_COMMANDE
+	toColumn: DIMCOMMANDE.ID_COMMANDE
+
+relationship 2ec22fdf-c853-406a-b24d-f1a0e1ac2bc9
+	fromColumn: FAITVENTES.ID_FACTURE
+	toColumn: DIMFACTURE.ID_FACTURE
+
+relationship 25c5ce14-08e5-c4d3-1b98-8876f4bf7c64
+	fromColumn: FAITVENTES.DT_COMMANDE
+	toColumn: Calendrier.Date
+
+relationship 9445ca25-92e3-46ae-b4cb-5918c925753c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FAITVENTES.DT_EXPEDITION
+	toColumn: LocalDateTable_39a62f7b-decc-4f74-9e49-3411a37b9cb1.Date
+
