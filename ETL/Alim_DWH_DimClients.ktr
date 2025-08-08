@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>SAS_HYPERMARCHE_VENTES</name>
+    <name>Alim_DWH_DimClients</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,10 +427,10 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/08/05 15:35:10.248</created_date>
+    <created_date>2025/08/08 10:37:08.510</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/08/05 15:35:10.248</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2025/08/08 10:37:08.510</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -501,351 +500,140 @@
   </connection>
   <order>
     <hop>
-      <from>Extraction Data Hypermarche</from>
-      <to>Insertion dans table SAS_Hypermarche</to>
+      <from>T_SAS_Hypermarche</from>
+      <to>Tri par code client</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri par code client</from>
+      <to>Dédoublonnage : supprime les doublons</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dédoublonnage : supprime les doublons</from>
+      <to>Database lookup : recherche dans BDD si deja existant</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Altération structure flux</from>
+      <to>Ajout séquence : incrémentation de la BDD</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup : recherche dans BDD si deja existant</from>
+      <to>Filtrage lignes : ID = 0</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes : ID = 0</from>
+      <to>Altération structure flux</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Ajout séquence : incrémentation de la BDD</from>
+      <to>Insertion dans table DIMCLIENTS</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes : ID = 0</from>
+      <to>Mise à jour table DIMCLIENTS</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Extraction Data Hypermarche</name>
-    <type>ExcelInput</type>
+    <name>T_SAS_Hypermarche</name>
+    <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <header>Y</header>
-    <noempty>Y</noempty>
-    <stoponempty>N</stoponempty>
-    <filefield/>
-    <sheetfield/>
-    <sheetrownumfield/>
-    <rownumfield/>
-    <sheetfield/>
-    <filefield/>
+    <connection>Azure DB</connection>
+    <sql>SELECT
+CODE_CLIENT
+, "Nom du client"
+, SEGMENT
+FROM [dbo].[SAS_Hypermarche]</sql>
     <limit>0</limit>
-    <encoding/>
-    <add_to_result_filenames>Y</add_to_result_filenames>
-    <accept_filenames>N</accept_filenames>
-    <accept_field/>
-    <accept_stepname/>
-    <file>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name>${Internal.Entry.Current.Directory}/Sources/Hypermarché.xlsx</name>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-      <name/>
-      <filemask/>
-      <exclude_filemask/>
-      <file_required>N</file_required>
-      <include_subfolders>N</include_subfolders>
-    </file>
-    <fields>
-      <field>
-        <name>ID ligne</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>ID commande</name>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
         <type>String</type>
-        <length>-1</length>
+        <storagetype>normal</storagetype>
+        <name>CODE_CLIENT</name>
+        <length>100</length>
         <precision>-1</precision>
+        <origin>T_SA_Hypermarche_Achat</origin>
+        <comments>CODE_CLIENT</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
         <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Date de commande</name>
-        <type>Date</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Mode d'expédition</name>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Europe/Paris</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
         <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Date d'expédition</name>
-        <type>Date</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Date facture</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Date chargement</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Code_CLIENT</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
+        <storagetype>normal</storagetype>
         <name>Nom du client</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>T_SA_Hypermarche_Achat</origin>
+        <comments>Nom du client</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Europe/Paris</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
         <type>String</type>
-        <length>-1</length>
+        <storagetype>normal</storagetype>
+        <name>SEGMENT</name>
+        <length>100</length>
         <precision>-1</precision>
+        <origin>T_SA_Hypermarche_Achat</origin>
+        <comments>SEGMENT</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
         <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Segment</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Ville</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Région</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Pays</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Zone géographique</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Ref_Produit</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Catégorie</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Sous-catégorie</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Nom du produit</name>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Montant des ventes</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Quantité</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Remise</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-      <field>
-        <name>Profit</name>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-        <repeat>N</repeat>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-      </field>
-    </fields>
-    <sheets>
-      <sheet>
-        <name>Achats</name>
-        <startrow>0</startrow>
-        <startcol>0</startcol>
-      </sheet>
-    </sheets>
-    <strict_types>N</strict_types>
-    <error_ignored>N</error_ignored>
-    <error_line_skipped>N</error_line_skipped>
-    <bad_line_files_destination_directory/>
-    <bad_line_files_extension>warning</bad_line_files_extension>
-    <error_line_files_destination_directory/>
-    <error_line_files_extension>error</error_line_files_extension>
-    <line_number_files_destination_directory/>
-    <line_number_files_extension>line</line_number_files_extension>
-    <shortFileFieldName/>
-    <pathFieldName/>
-    <hiddenFieldName/>
-    <lastModificationTimeFieldName/>
-    <uriNameFieldName/>
-    <rootUriNameFieldName/>
-    <extensionFieldName/>
-    <sizeFieldName/>
-    <spreadsheet_type>POI</spreadsheet_type>
-    <password>Encrypted </password>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Europe/Paris</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -855,13 +643,273 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>368</xloc>
-      <yloc>336</yloc>
+      <xloc>128</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table SAS_Hypermarche</name>
+    <name>Tri par code client</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>CODE_CLIENT</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>Nom du client</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>SEGMENT</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dédoublonnage : supprime les doublons</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>Y</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>CODE_CLIENT</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>624</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup : recherche dans BDD si deja existant</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Azure DB</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dbo</schema>
+      <table>DIMCLIENTS</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>CODE_CLIENT</name>
+        <field>CD_CLIENT</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>ID_CLIENT</name>
+        <rename>ID_CLIENT</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1040</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Altération structure flux</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>CODE_CLIENT</name>
+        <rename>CD_CLIENT</rename>
+      </field>
+      <field>
+        <name>Nom du client</name>
+        <rename>LB_NOM_CLIENT</rename>
+      </field>
+      <field>
+        <name>SEGMENT</name>
+        <rename>LB_NOM_SEGMENT</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1392</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Ajout séquence : incrémentation de la BDD</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <valuename>ID_CLIENT</valuename>
+    <use_database>N</use_database>
+    <connection>Azure DB</connection>
+    <schema/>
+    <seqname>SEQ_</seqname>
+    <use_counter>Y</use_counter>
+    <counter_name/>
+    <start_at>1</start_at>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1392</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filtrage lignes : ID = 0</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Altération structure flux</send_true_to>
+    <send_false_to>Mise à jour table DIMCLIENTS</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>ID_CLIENT</leftvalue>
+        <function>=</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>Integer</type>
+          <text>0</text>
+          <length>-1</length>
+          <precision>0</precision>
+          <isnull>N</isnull>
+          <mask>####0;-####0</mask>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1392</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertion dans table DIMCLIENTS</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -872,10 +920,10 @@
       <schema_name/>
     </partitioning>
     <connection>Azure DB</connection>
-    <schema/>
-    <table>SAS_Hypermarche</table>
+    <schema>dbo</schema>
+    <table>DIMCLIENTS</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -890,92 +938,20 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>ID ligne</column_name>
-        <stream_name>ID ligne</stream_name>
+        <column_name>ID_CLIENT</column_name>
+        <stream_name>ID_CLIENT</stream_name>
       </field>
       <field>
-        <column_name>ID commande</column_name>
-        <stream_name>ID commande</stream_name>
+        <column_name>CD_CLIENT</column_name>
+        <stream_name>CD_CLIENT</stream_name>
       </field>
       <field>
-        <column_name>Date de commande</column_name>
-        <stream_name>Date de commande</stream_name>
+        <column_name>LB_NOM_CLIENT</column_name>
+        <stream_name>LB_NOM_CLIENT</stream_name>
       </field>
       <field>
-        <column_name>Mode d'expédition</column_name>
-        <stream_name>Mode d'expédition</stream_name>
-      </field>
-      <field>
-        <column_name>Date d'expédition</column_name>
-        <stream_name>Date d'expédition</stream_name>
-      </field>
-      <field>
-        <column_name>Date facture</column_name>
-        <stream_name>Date facture</stream_name>
-      </field>
-      <field>
-        <column_name>Date chargement</column_name>
-        <stream_name>Date chargement</stream_name>
-      </field>
-      <field>
-        <column_name>Code_CLIENT</column_name>
-        <stream_name>Code_CLIENT</stream_name>
-      </field>
-      <field>
-        <column_name>Nom du client</column_name>
-        <stream_name>Nom du client</stream_name>
-      </field>
-      <field>
-        <column_name>Segment</column_name>
-        <stream_name>Segment</stream_name>
-      </field>
-      <field>
-        <column_name>Ville</column_name>
-        <stream_name>Ville</stream_name>
-      </field>
-      <field>
-        <column_name>Région</column_name>
-        <stream_name>Région</stream_name>
-      </field>
-      <field>
-        <column_name>Pays</column_name>
-        <stream_name>Pays</stream_name>
-      </field>
-      <field>
-        <column_name>Zone géographique</column_name>
-        <stream_name>Zone géographique</stream_name>
-      </field>
-      <field>
-        <column_name>Ref_Produit</column_name>
-        <stream_name>Ref_Produit</stream_name>
-      </field>
-      <field>
-        <column_name>Catégorie</column_name>
-        <stream_name>Catégorie</stream_name>
-      </field>
-      <field>
-        <column_name>Sous-catégorie</column_name>
-        <stream_name>Sous-catégorie</stream_name>
-      </field>
-      <field>
-        <column_name>Nom du produit</column_name>
-        <stream_name>Nom du produit</stream_name>
-      </field>
-      <field>
-        <column_name>Montant des ventes</column_name>
-        <stream_name>Montant des ventes</stream_name>
-      </field>
-      <field>
-        <column_name>Quantité</column_name>
-        <stream_name>Quantité</stream_name>
-      </field>
-      <field>
-        <column_name>Remise</column_name>
-        <stream_name>Remise</stream_name>
-      </field>
-      <field>
-        <column_name>Profit</column_name>
-        <stream_name>Profit</stream_name>
+        <column_name>LB_NOM_SEGMENT</column_name>
+        <stream_name>LB_NOM_SEGMENT</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -987,8 +963,61 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>336</yloc>
+      <xloc>1392</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Mise à jour table DIMCLIENTS</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Azure DB</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>dbo</schema>
+      <table>DIMCLIENTS</table>
+      <key>
+        <name>ID_CLIENT</name>
+        <field>ID_CLIENT</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>CD_CLIENT</name>
+        <rename>CODE_CLIENT</rename>
+      </value>
+      <value>
+        <name>LB_NOM_CLIENT</name>
+        <rename>Nom du client</rename>
+      </value>
+      <value>
+        <name>LB_NOM_SEGMENT</name>
+        <rename>SEGMENT</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1680</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
